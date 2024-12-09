@@ -26,8 +26,6 @@ const uri = process.env.MONGO_URI;
 // Connect to MongoDB
 mongoose.connect(uri, {
   dbName: 'test', // Replace with your database name
-  useNewUrlParser: true, // Optional, safe to keep
-  useUnifiedTopology: true, // Optional, safe to keep
 })
   .then(() => console.log("MongoDB connected successfully!"))
   .catch(err => {
