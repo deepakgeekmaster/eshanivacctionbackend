@@ -11,22 +11,20 @@ dotenv.config();
 
 // Initialize express
 const app = express();
-app.use(cors());
+
 // Middleware to parse incoming JSON and form-data
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: 'GET,POST',
   allowedHeaders: 'Content-Type, Authorization',
-  credentials: true,    // Allow requests only from this origin
+  credentials: true,
 }));
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
+
 
 // Use the property routes
 app.use('/api', propertyRoutes);
