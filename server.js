@@ -21,17 +21,19 @@ app.use(cors({
   credentials: true,
 }));
 // Connect to MongoDB
+const uri = process.env.MONGO_URI;
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB Atlas");
-});
+// Connect to MongoDB
+mongoose.connect(uri, {
+  dbName: 'test', // Replace with your database name
+  useNewUrlParser: true, // Optional, safe to keep
+  useUnifiedTopology: true, // Optional, safe to keep
+})
+  .then(() => console.log("MongoDB connected successfully!"))
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Exit the process if the connection fails
+  });
 
 
 // Use the property routes
